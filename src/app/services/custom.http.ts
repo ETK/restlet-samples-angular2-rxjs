@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Rx';
 export class CustomHttp extends Http {
   constructor(backend: ConnectionBackend,
             defaultOptions: RequestOptions,
-            private errorService:ErrorNotifierService) {
+            private errorService: ErrorNotifierService) {
     super(backend, defaultOptions);
   }
 
@@ -19,7 +19,7 @@ export class CustomHttp extends Http {
           return Observable.empty();
         })
         .retryWhen(error => error.delay(500))
-        .timeout(2000, new Error('delay exceeded'))
+        .timeoutWith(2000, Observable.throw(new Error('delay exceeded')))
         .finally(() => {
           console.log('After the request...');
         });
@@ -37,7 +37,7 @@ export class CustomHttp extends Http {
           }
         })
         .retryWhen(error => error.delay(500))
-        .timeout(2000, new Error('delay exceeded'))
+        .timeoutWith(2000, Observable.throw(new Error('delay exceeded')))
         .finally(() => {
           console.log('After the request...');
         });

@@ -1,7 +1,7 @@
-import { Injectable, Inject, OpaqueToken} from '@angular/core';
+import { Injectable, Inject, InjectionToken} from '@angular/core';
 import {BaseRequestOptions, RequestOptions, RequestOptionsArgs} from '@angular/http';
 
-export const WEBAPI_URL_TOKEN = new OpaqueToken('webApiBaseUrl');
+export const WEBAPI_URL_TOKEN = new InjectionToken('webApiBaseUrl');
 
 export class AppRequestOptions extends BaseRequestOptions {
   constructor(@Inject(WEBAPI_URL_TOKEN) private webApiBaseUrl:string) {
